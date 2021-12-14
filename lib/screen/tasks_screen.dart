@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_todo_list_flutter/models/task_data.dart';
 import 'package:simple_todo_list_flutter/screen/add_task_screen.dart';
 import 'package:simple_todo_list_flutter/widgets/task_list.dart';
 
 class TasksScreen extends StatelessWidget {
-  const TasksScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +16,7 @@ class TasksScreen extends StatelessWidget {
           showModalBottomSheet(
             context: context,
             builder: (context) {
-              return AddTaskList();
+              return AddTaskScreen();
             },
           );
         },
@@ -35,8 +35,8 @@ class TasksScreen extends StatelessWidget {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  CircleAvatar(
+                children: [
+                  const CircleAvatar(
                     child: Icon(
                       Icons.list,
                       size: 30,
@@ -45,8 +45,8 @@ class TasksScreen extends StatelessWidget {
                     backgroundColor: Colors.white,
                     radius: 30,
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     'Todoey',
                     style: TextStyle(
                       color: Colors.white,
@@ -54,9 +54,9 @@ class TasksScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
-                    '12 Tasks',
+                    '${Provider.of<TaskData>(context).taskCount} Tasks',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,

@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_todo_list_flutter/models/task_data.dart';
 
-class AddTaskList extends StatelessWidget {
-  const AddTaskList({Key? key}) : super(key: key);
-
+class AddTaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    TextEditingController newTaskController = TextEditingController();
+
     return Container(
       color: Color(0xFF757575),
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -31,9 +33,10 @@ class AddTaskList extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              const TextField(
+              TextField(
+                controller: newTaskController,
                 textAlign: TextAlign.center,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
@@ -62,8 +65,13 @@ class AddTaskList extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                onPressed: () {},
-                child: Text('Add TODO'),
+                onPressed: () {
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(newTaskController.text);
+                  newTaskController.clear();
+                  Navigator.pop(context);
+                },
+                child: Text("Add todo"),
               ),
             ],
           ),
